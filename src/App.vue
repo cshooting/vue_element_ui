@@ -21,8 +21,12 @@
 </template>
 
 <script>
+  import Vue from "vue";
   import NavBar from "./components/NavBar";
   import sideBar from "./components/sideBar";
+  import axios from "axios"
+
+  Vue.prototype.$axios = axios;
 
   export default {
     name: "app",
@@ -34,6 +38,12 @@
       return {
         msg: "Welcome"
       };
+    },
+    created:function(){
+      axios.get('https://news.baidu.com/widget?ajax=json&id=ad')
+      .then(function(res){
+        console.log(res);
+      })
     }
   };
 
