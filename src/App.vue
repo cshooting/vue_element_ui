@@ -40,9 +40,9 @@
       };
     },
     created:function(){
-      axios.get('https://news.baidu.com/widget?ajax=json&id=ad')
+      axios.get('https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example')
       .then(function(res){
-        console.log(res);
+        console.log(res.data);
       })
     }
   };
