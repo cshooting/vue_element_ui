@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
       <el-header>
-        <nav-bar />
+        <nav-bar/>
       </el-header>
       <el-container>
         <el-aside width="200px">
@@ -10,6 +10,9 @@
           <div class="menu">
             <router-link to="pageOne" class="menuPos">pageOne</router-link>
             <router-link to="pageTwo" class="menuPos">pageTwo</router-link>
+            <div>{{msg | captial}}</div>
+            <div>{{dollars | currency}}</div>
+            <el-button type="primary" @click="sayName('cst')">点击</el-button>
           </div>
         </el-aside>
         <el-main>
@@ -25,8 +28,17 @@
   import NavBar from "./components/NavBar";
   import sideBar from "./components/sideBar";
   import axios from "axios"
+  import { getData,http } from './index.js';
 
-  Vue.prototype.$axios = axios;
+  // Vue.prototype.$axios = axios;
+  Vue.prototype.$http = http;
+  // 自定义过滤器
+  Vue.filter("captial",function(val){
+    return val.toLowerCase();
+  });
+  Vue.filter("currency",function(val){
+    return val+"$";
+  })
 
   export default {
     name: "app",
@@ -36,13 +48,25 @@
     },
     data() {
       return {
-        msg: "Welcome"
+        msg: "Welcome",
+        dollars:100
       };
     },
+    methods:{
+      sayName:function(name){
+        alert(name);
+      }
+    },
     created:function(){
-      axios.get('https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example')
+      // axios.get('https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example')
+      // .then(function(res){
+      //   console.log(res.data);
+      // })
+      var url = 'https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example'
+      // getData(url); 
+      http(url,'get')
       .then(function(res){
-        console.log(res.data);
+        console.log(res);
       })
     }
   };

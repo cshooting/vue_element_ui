@@ -1,7 +1,7 @@
 <template>
     <div class="nav-bar">
         <div class="left-area">
-            <el-button type="primary" icon="el-icon-search">搜索</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="useTest()">搜索</el-button>
         </div>
         <div class="right-area">
             <div><i class="el-icon-setting size"></i></div>
@@ -11,8 +11,15 @@
     </div>
 </template>
 <script>
+import {test, newtest} from "../index.js"
 export default {
-  // name: 'NavBar'
+  name: 'NavBar',
+  methods:{
+    useTest:function(){
+      test();
+      newtest();
+    }
+  }
 };
 </script>
 <style>
