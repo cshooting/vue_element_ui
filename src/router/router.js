@@ -2,8 +2,7 @@ import pageOne from "../components/pageOne"
 import pageTwo from "../components/pageTwo"
 const routers = [{
     path: '/',
-    name: 'pageOne',
-    component: pageOne
+    redirect:'/pageOne'
   },
   {
     path: '/pageOne',
