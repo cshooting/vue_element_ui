@@ -9,13 +9,13 @@
           <side-bar />
           <div class="menu">
             <router-link to="pageOne" class="menuPos">pageOne</router-link>
-            <router-link to="pageTwo" class="menuPos">pageTwo</router-link>
-            <div>{{msg | captial}}</div>
-            <div>{{dollars | currency}}</div>
-            <el-button type="primary" @click="sayName('cst')">点击</el-button>
+            <router-link to="pageTwo" class="menuPos">pageTwo</router-link> 
           </div>
         </el-aside>
         <el-main>
+          <div>{{msg | captial}}</div>
+          <div>{{dollars | currency}}</div>
+          <el-button type="primary" @click="sayName('cst')">点击</el-button>
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -25,13 +25,13 @@
 
 <script>
   import Vue from "vue";
-  import NavBar from "./components/NavBar";
+  import navBar from "./components/NavBar";
   import sideBar from "./components/sideBar";
   import axios from "axios"
   import { getData,http } from './index.js';
 
-  // Vue.prototype.$axios = axios;
-  Vue.prototype.$http = http;
+  Vue.prototype.$axios = axios;
+  //Vue.prototype.$http = http;
   // 自定义过滤器
   Vue.filter("captial",function(val){
     return val.toLowerCase();
@@ -43,8 +43,10 @@
   export default {
     name: "app",
     components: {
-      "nav-bar": NavBar,
-      "side-bar": sideBar
+      navBar,
+      sideBar
+      // "nav-bar": navBar,
+      // "side-bar": sideBar
     },
     data() {
       return {
@@ -58,16 +60,20 @@
       }
     },
     created:function(){
-      // axios.get('https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example')
-      // .then(function(res){
-      //   console.log(res.data);
-      // })
-      var url = 'https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example'
-      // getData(url); 
-      http(url,'get')
+      axios.get('https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example')
       .then(function(res){
-        console.log(res);
+        console.log(res.data);
       })
+      // var url = 'https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example';
+      // var params = {
+      //   a:1,
+      //   b:2
+      // }
+      // getData(url); 
+      // http(url,'get',params)
+      // .then(function(res){
+      //   console.log(res);
+      // })
     }
   };
 
@@ -114,7 +120,14 @@
   .menuPos {
     display: block;
     text-decoration: none;
+    font-size:18px;
+    line-height:44px;
     color: #fff;
+  }
+
+  .router-link-active{
+    background:yellow;
+    color: blue
   }
 
 </style>
