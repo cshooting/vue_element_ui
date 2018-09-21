@@ -1,5 +1,6 @@
 import axios from "axios";
 import qs from "qs";
+
 require('promise.prototype.finally').shim();
 
 function getData(url) {
@@ -8,6 +9,7 @@ function getData(url) {
       console.log(res.data);
     })
 }
+
 //axios封装
 function http(url, method, param) {
   param = param && typeof param === "object" ? param : {};
@@ -41,8 +43,9 @@ function test() {
 }
 
 function newtest() {
-  console.log("2222222222");
+  console.log("test");
 }
+
 export {
   test,
   newtest,

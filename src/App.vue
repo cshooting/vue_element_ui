@@ -125,7 +125,7 @@
     color: #fff;
   }
 
-  .router-link-active{
+  .active{
     background:yellow;
     color: blue
   }
