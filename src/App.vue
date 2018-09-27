@@ -2,21 +2,33 @@
   <div id="app">
     <el-container>
       <el-header>
-        <nav-bar/>
+        <nav-bar />
       </el-header>
       <el-container>
         <el-aside width="200px">
           <side-bar />
           <div class="menu">
-            <router-link to="pageOne" class="menuPos">pageOne</router-link>
-            <router-link to="pageTwo" class="menuPos">pageTwo</router-link> 
+            <!-- <router-link to="pageOne" class="menuPos">pageOne</router-link>
+            <router-link to="pageTwo" class="menuPos">pageTwo</router-link> -->
+            <ul>
+              <li v-for="(item,index) in routers" :key="index" class="menuPos">
+                <router-link :to="{name:item.name}" class="menuPos">{{item.name}}</router-link>
+                <ul>
+                  <li v-for="(item,index) in item.children" :key="index" class="menuPos">
+                    <router-link :to="{name:item.name}" class="menuPos">{{item.name}}</router-link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </el-aside>
         <el-main>
-          <div>{{msg | captial}}</div>
+          <!-- <div>{{msg | captial}}</div>
           <div>{{dollars | currency}}</div>
-          <el-button type="primary" @click="sayName('cst')">点击</el-button>
-          <router-view></router-view>
+          <el-button type="primary" @click="sayName('cst')">点击</el-button> -->
+          <router-view>
+            <router-view></router-view>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -24,21 +36,25 @@
 </template>
 
 <script>
-  import Vue from "vue";
-  import navBar from "./components/NavBar";
-  import sideBar from "./components/sideBar";
+  import Vue from "vue"
+  import navBar from "./components/NavBar"
+  import sideBar from "./components/sideBar"
   import axios from "axios"
-  import { getData,http } from './index.js';
+  import router from "./router/router.js"
+  import {
+    getData,
+    http
+  } from "./index.js";
 
   Vue.prototype.$axios = axios;
   //Vue.prototype.$http = http;
   // 自定义过滤器
-  Vue.filter("captial",function(val){
+  Vue.filter("captial", function (val) {
     return val.toLowerCase();
   });
-  Vue.filter("currency",function(val){
-    return val+"$";
-  })
+  Vue.filter("currency", function (val) {
+    return val + "$";
+  });
 
   export default {
     name: "app",
@@ -51,25 +67,27 @@
     data() {
       return {
         msg: "Welcome",
-        dollars:100
+        dollars: 100,
+        routers: router
       };
     },
-    methods:{
-      sayName:function(name){
+    methods: {
+      sayName: function (name) {
         alert(name);
       }
     },
-    created:function(){
-      axios.get('https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example')
-      .then(function(res){
-        console.log(res.data);
-      })
+    created: function () {
+      axios
+        .get("https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example")
+        .then(function (res) {
+          console.log(res.data);
+        });
       // var url = 'https://easy-mock.com/mock/5b875eb8b762eb26e90eb971/test/example';
       // var params = {
       //   a:1,
       //   b:2
       // }
-      // getData(url); 
+      // getData(url);
       // http(url,'get',params)
       // .then(function(res){
       //   console.log(res);
@@ -118,16 +136,16 @@
   }
 
   .menuPos {
-    display: block;
     text-decoration: none;
-    font-size:18px;
-    line-height:44px;
+    list-style-type: none;
+    font-size: 18px;
+    line-height: 44px;
     color: #fff;
   }
 
-  .active{
-    background:yellow;
-    color: blue
+  .active {
+    background: yellow;
+    color: blue;
   }
 
 </style>

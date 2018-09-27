@@ -1,28 +1,45 @@
 <template>
     <div>
-        <p>pageTwo</p>
+      <el-button type = "primary" @click="change()">过渡动画</el-button>
+      <transition name="box">
+        <div v-if = "showBox" class= "box"></div>
+      </transition>  
     </div>
 </template>
 <script>
 export default {
-  // name: 'NavBar'
+  data:function(){
+    return {
+      showBox: true
+    }
+  },
+  methods:{
+    change(){
+      this.showBox = !this.showBox;
+    }
+  }
 };
 </script>
-<style>
-.left-area {
-  width: 150px;
-  height: 60px;
-  padding-left: 20px;
-  float: left;
-}
-.right-area {
-  width: 180px;
-  height: 60px;
-  float: right;
-}
-.size {
-  float: left;
-  font-size: 30px;
-  padding: 15px 0 15px 15px;
-}
+<style scoped>
+  .box{
+    width: 100px;
+    height:100px;
+    background: #ff8282;
+  }
+  .box-enter-active{
+    transition: all .8s;
+  }
+  .box-enter{
+    opacity:1;
+    margin-left:100%;
+  }
+  .box-leave-active{
+    transition: all .8s;
+    margin-right:100%;
+  }
+  .box-leave{
+   
+    
+  }
+  
 </style>
