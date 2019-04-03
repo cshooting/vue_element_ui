@@ -29,19 +29,25 @@
         <el-table-column prop="mobile" label="电话"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="getRowData(scope.row)">获取行信息</el-button>
+            <el-button type="primary" size="small" @click="getRowData(scope.row)">获取行信息</el-button>
+            <el-button type="success" size="small" v-if="scope.row.status == 2" @click="showDialog()">弹窗</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
+    <role-dialog ref="roleDialog"></role-dialog>
   </div>
 </template>
 <script>
 import moment from "moment";
 import "moment/locale/zh-cn";
+import roleDialog from "./roleDialog"
 moment.locale("zh-cn");
 export default {
   name: "todolist",
+  components: {
+    roleDialog
+  },
   data() {
     return {
       newTodo: "",
@@ -57,128 +63,7 @@ export default {
           mobile: "15013797314",
           email: null,
           status: 2,
-          areaList: "__vue_devtool_undefined__",
-          authorityList: [
-            {
-              id: 1,
-              authorityCode: "user_add",
-              authorityName: "新增用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 2,
-              authorityCode: "user_update",
-              authorityName: "修改用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 3,
-              authorityCode: "user_delete",
-              authorityName: "删除用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 5,
-              authorityCode: "user_lock",
-              authorityName: "锁定用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 6,
-              authorityCode: "user_unlock",
-              authorityName: "解冻用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 7,
-              authorityCode: "cmdb_query",
-              authorityName: "CMDB查询",
-              authorityType: 2,
-              description: null
-            },
-            {
-              id: 8,
-              authorityCode: "cmdb_operate",
-              authorityName: "CMDB操作",
-              authorityType: 2,
-              description: null
-            },
-            {
-              id: 9,
-              authorityCode: "monitor_query",
-              authorityName: "监控查询",
-              authorityType: 3,
-              description: null
-            },
-            {
-              id: 10,
-              authorityCode: "monitor_operate",
-              authorityName: "监控配置",
-              authorityType: 3,
-              description: null
-            },
-            {
-              id: 12,
-              authorityCode: "order_operate",
-              authorityName: "操作工单",
-              authorityType: 4,
-              description: null
-            },
-            {
-              id: 13,
-              authorityCode: "message_add",
-              authorityName: "发布消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 14,
-              authorityCode: "message_query",
-              authorityName: "查看消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 15,
-              authorityCode: "message_delete",
-              authorityName: "撤销消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 16,
-              authorityCode: "security_start",
-              authorityName: "启动巡检",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 17,
-              authorityCode: "security_result",
-              authorityName: "查看结果",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 18,
-              authorityCode: "security_info",
-              authorityName: "查看详情",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 19,
-              authorityCode: "security_repair",
-              authorityName: "启动修复",
-              authorityType: 6,
-              description: null
-            }
-          ]
+          areaList: "__vue_devtool_undefined__"
         },
         {
           id: 2,
@@ -189,30 +74,7 @@ export default {
           mobile: "13712345678",
           email: null,
           status: 2,
-          areaList: "__vue_devtool_undefined__",
-          authorityList: [
-            {
-              id: 4,
-              authorityCode: "user_check",
-              authorityName: "审查用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 11,
-              authorityCode: "order_check",
-              authorityName: "审查工单",
-              authorityType: 4,
-              description: null
-            },
-            {
-              id: 14,
-              authorityCode: "message_query",
-              authorityName: "查看消息",
-              authorityType: 5,
-              description: null
-            }
-          ]
+          areaList: "__vue_devtool_undefined__"
         },
         {
           id: 19,
@@ -223,51 +85,7 @@ export default {
           mobile: "18383098457",
           email: null,
           status: 2,
-          areaList: "__vue_devtool_undefined__",
-          authorityList: [
-            {
-              id: 1,
-              authorityCode: "user_add",
-              authorityName: "新增用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 2,
-              authorityCode: "user_update",
-              authorityName: "修改用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 3,
-              authorityCode: "user_delete",
-              authorityName: "删除用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 5,
-              authorityCode: "user_lock",
-              authorityName: "锁定用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 6,
-              authorityCode: "user_unlock",
-              authorityName: "解冻用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 19,
-              authorityCode: "security_repair",
-              authorityName: "启动修复",
-              authorityType: 6,
-              description: null
-            }
-          ]
+          areaList: "__vue_devtool_undefined__"
         },
         {
           id: 20,
@@ -278,44 +96,7 @@ export default {
           mobile: "18077519699",
           email: null,
           status: 0,
-          areaList: "__vue_devtool_undefined__",
-          authorityList: [
-            {
-              id: 7,
-              authorityCode: "cmdb_query",
-              authorityName: "CMDB查询",
-              authorityType: 2,
-              description: null
-            },
-            {
-              id: 9,
-              authorityCode: "monitor_query",
-              authorityName: "监控查询",
-              authorityType: 3,
-              description: null
-            },
-            {
-              id: 14,
-              authorityCode: "message_query",
-              authorityName: "查看消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 17,
-              authorityCode: "security_result",
-              authorityName: "查看结果",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 18,
-              authorityCode: "security_info",
-              authorityName: "查看详情",
-              authorityType: 6,
-              description: null
-            }
-          ]
+          areaList: "__vue_devtool_undefined__"
         },
         {
           id: 21,
@@ -326,128 +107,7 @@ export default {
           mobile: "18077579699",
           email: null,
           status: 0,
-          areaList: "__vue_devtool_undefined__",
-          authorityList: [
-            {
-              id: 1,
-              authorityCode: "user_add",
-              authorityName: "新增用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 2,
-              authorityCode: "user_update",
-              authorityName: "修改用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 3,
-              authorityCode: "user_delete",
-              authorityName: "删除用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 5,
-              authorityCode: "user_lock",
-              authorityName: "锁定用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 6,
-              authorityCode: "user_unlock",
-              authorityName: "解冻用户",
-              authorityType: 1,
-              description: null
-            },
-            {
-              id: 7,
-              authorityCode: "cmdb_query",
-              authorityName: "CMDB查询",
-              authorityType: 2,
-              description: null
-            },
-            {
-              id: 8,
-              authorityCode: "cmdb_operate",
-              authorityName: "CMDB操作",
-              authorityType: 2,
-              description: null
-            },
-            {
-              id: 9,
-              authorityCode: "monitor_query",
-              authorityName: "监控查询",
-              authorityType: 3,
-              description: null
-            },
-            {
-              id: 10,
-              authorityCode: "monitor_operate",
-              authorityName: "监控配置",
-              authorityType: 3,
-              description: null
-            },
-            {
-              id: 12,
-              authorityCode: "order_operate",
-              authorityName: "操作工单",
-              authorityType: 4,
-              description: null
-            },
-            {
-              id: 13,
-              authorityCode: "message_add",
-              authorityName: "发布消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 14,
-              authorityCode: "message_query",
-              authorityName: "查看消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 15,
-              authorityCode: "message_delete",
-              authorityName: "撤销消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 16,
-              authorityCode: "security_start",
-              authorityName: "启动巡检",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 17,
-              authorityCode: "security_result",
-              authorityName: "查看结果",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 18,
-              authorityCode: "security_info",
-              authorityName: "查看详情",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 19,
-              authorityCode: "security_repair",
-              authorityName: "启动修复",
-              authorityType: 6,
-              description: null
-            }
-          ]
+          areaList: "__vue_devtool_undefined__"
         },
         {
           id: 24,
@@ -458,93 +118,7 @@ export default {
           mobile: "18846111597",
           email: null,
           status: 2,
-          areaList: "__vue_devtool_undefined__",
-          authorityList: [
-            {
-              id: 7,
-              authorityCode: "cmdb_query",
-              authorityName: "CMDB查询",
-              authorityType: 2,
-              description: null
-            },
-            {
-              id: 8,
-              authorityCode: "cmdb_operate",
-              authorityName: "CMDB操作",
-              authorityType: 2,
-              description: null
-            },
-            {
-              id: 9,
-              authorityCode: "monitor_query",
-              authorityName: "监控查询",
-              authorityType: 3,
-              description: null
-            },
-            {
-              id: 10,
-              authorityCode: "monitor_operate",
-              authorityName: "监控配置",
-              authorityType: 3,
-              description: null
-            },
-            {
-              id: 12,
-              authorityCode: "order_operate",
-              authorityName: "操作工单",
-              authorityType: 4,
-              description: null
-            },
-            {
-              id: 13,
-              authorityCode: "message_add",
-              authorityName: "发布消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 14,
-              authorityCode: "message_query",
-              authorityName: "查看消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 15,
-              authorityCode: "message_delete",
-              authorityName: "撤销消息",
-              authorityType: 5,
-              description: null
-            },
-            {
-              id: 16,
-              authorityCode: "security_start",
-              authorityName: "启动巡检",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 17,
-              authorityCode: "security_result",
-              authorityName: "查看结果",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 18,
-              authorityCode: "security_info",
-              authorityName: "查看详情",
-              authorityType: 6,
-              description: null
-            },
-            {
-              id: 19,
-              authorityCode: "security_repair",
-              authorityName: "启动修复",
-              authorityType: 6,
-              description: null
-            }
-          ]
+          areaList: "__vue_devtool_undefined__"
         }
       ]
     };
@@ -567,6 +141,9 @@ export default {
     },
     getRowData(rowData){
       console.log(rowData)
+    },
+    showDialog(){
+      this.$refs.roleDialog.open();
     }
   }
 };
