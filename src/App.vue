@@ -129,12 +129,6 @@
     text-align: center;
   }
 
-  .el-main {
-    color: #333;
-    text-align: center;
-    height: 100%;
-  }
-
   .menuPos {
     text-decoration: none;
     list-style-type: none;

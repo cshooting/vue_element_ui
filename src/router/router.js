@@ -1,6 +1,6 @@
 import pageOne from "../components/pageOne"
 import pageTwo from "../components/pageTwo"
-import detil from "../components/detil.vue"
+// import detil from "../components/detil.vue"
 const routers = [{
     path: '/',
     redirect:'/pageOne'
@@ -9,11 +9,11 @@ const routers = [{
     path: '/pageOne',
     name: 'pageOne',
     component: pageOne,
-    children:[{
-      path:'detil',
-      name:'detil',
-      component: detil
-    }]
+    // children:[{
+    //   path:'detil',
+    //   name:'detil',
+    //   component: detil
+    // }]
   },
   {
     path: '/pageTwo',
